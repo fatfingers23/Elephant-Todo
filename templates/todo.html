@@ -7,6 +7,10 @@
 <link href="https://cdn.jsdelivr.net/npm/daisyui@2.14.2/dist/full.css" rel="stylesheet" type="text/css" />
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
+
+</style>
+<style>
+
 </style>
 
 <body>
@@ -16,31 +20,58 @@
   <div class="container " />
 
   <div class="h-100 w-full flex items-center justify-center bg-teal-lightest font-sans">
-    <div class="rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg">
+    <div class="rounded shadow p-6 m-4 w-full  lg:max-w-lg">
       <div class="mb-4">
         <div class="flex mt-4 w-full">
+
           <div class="form-control w-full">
-            <div class="input-group">
-              <input type="text" placeholder="Add Todo" class="input input-bordered w-full">
-              <button class="btn btn-square btn-success">
-                Add
-              </button>
-            </div>
+            <form method="POST" action="/add">
+              <div class="input-group">
+                <input type="text" placeholder="Add Todo" class="input input-bordered w-full" name="new_todo">
+                <button class="btn btn-square btn-success">
+                  Add
+                </button>
+              </div>
+            </form>
           </div>
 
         </div>
       </div>
       <div>
-        <div class="flex mb-4 items-center">
-          <p class="w-full ">Add another component to Tailwind Components</p>
-          <button class="ml-4 mr-2 btn btn-outline btn-success">Done</button>
-          <button class="ml-2 btn btn-outline btn-error">Remove</button>
+        {% for key, todo in todos %}
+        <form action="/edit" method="POST">
+          <div class="flex mb-4 items-center">
+            <p class="w-full {{todo['completed'] ? 'line-through' : ''}}">{{todo["description"]}}</p>
+            
+            <input name="id" value="{{key}}" hidden />
+            
+            {% if todo["completed"] %}
+            <button class="ml-4 mr-2 btn btn-outline primary" name="not_done">Not Done</button>
+
+            {% else %}
+            <button class="ml-4 mr-2 btn btn-outline btn-success" name="done">Done</button>
+
+            {% endif %}
+
+            <button class="ml-2 btn btn-outline btn-error" name="remove">Remove</button>
+
+
+          </div>
+        </form>
+        {% else %}
+
+        <div class="flex mb-4 items-center text-center">
+          <p class="w-full ">No todos yet! Add one to get started.</p>
+
         </div>
-        <div class="flex mb-4 items-center">
-            <p class="w-full line-through">Submit Todo App Component to Tailwind Components</p>
+        {% endfor %}
+
+        <!--         <div class="flex mb-4 items-center">
+          <p class="w-full line-through">Submit Todo App Component to Tailwind Components</p>
           <button class="ml-4 mr-2 btn btn-outline primary">Not Done</button>
           <button class="ml-2 btn btn-outline btn-error">Remove</button>
-        </div>
+        </div> -->
+
       </div>
     </div>
   </div>

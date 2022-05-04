@@ -4,43 +4,56 @@ namespace App;
 
 use Fatfingers23\ReplitDatabaseClient\DatabaseClient;
 
+
+/**
+* Class for interacting with the Replit database
+*/
 class Database
 {
 
   protected DatabaseClient $client;
   protected string $userId;
-
-  function __construct(string $userId)
+  protected \SlimSession\Helper $session;
+  protected string $todoPrefix;
+  function __construct()
   {
     $this->client = new DatabaseClient();
-    $this->userId = $userId;
+    
+    $this->session = new \SlimSession\Helper();
+    $this->userId = $this->session::id();
+    $this->todoPrefix = "$this->userId:todo:";
   }
 
 
   public function getUsersTodoList()
   {
-    return $this->client->get("$this->userId:todo");
+    return $this->client->getPrefix($this->todoPrefix);
   }
 
   public function addTodo(string $description)
   {
-    $key = "$this->userId:todo";
-    $todoArray = $this->client->get($key);
-    var_dump($todoArray);
-    if ($todoArray == null) {
-      $todoArray = [];
-    }
-    var_dump($todoArray);
-    $todoArray[] = $this->makeTodoArray($description, false);
-    var_dump($todoArray);
-    $this->client->set($key, $todoArray);
+    $key = $this->todoPrefix . uniqid();
+
+    $newTodo = $this->makeTodoArray($description, false);    
+    $this->client->set($key, $newTodo);
   }
 
+  public function deleteTodo(string $id){
+    $this->client->delete($id);
+  }
+
+  public function setCompleted(string $id, bool $completed){
+    $todo = $this->client->get($id);
+    $todo["completed"] = $completed;
+    $this->client->set($id, $todo);
+    
+  }
   private function makeTodoArray(string $description, bool $completed)
   {
     return [
       'description' => $description,
-      'completed' => $completed
+      'completed' => $completed,
     ];
   }
 }
+

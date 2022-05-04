@@ -17,6 +17,7 @@
         "slim/psr7": "^1.5",
         "slim/twig-view": "^3.3",
         "fatfingers23/replit-database-client": "^1.0",
-        "bryanjhv/slim-session": "~4.0"
+        "bryanjhv/slim-session": "~4.0",
+        "psy/psysh": "~0.1"
     }
 }
