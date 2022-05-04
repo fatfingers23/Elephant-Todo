@@ -1,7 +1,7 @@
 # Elephant Todo
 [![Run on Repl.it](https://repl.it/badge/github/fatfingers23/Elephant-Todo.git)](https://repl.it/github/fatfingers23/Elephant-Todo.git)
 
-A simple PHP web application built with the PHP micro framework . If you are familiar with [express](https://expressjs.com/) or [Flask](https://flask.palletsprojects.com/en/2.1.x/) you will feel right at home with Slim. Happy hacking!
+A simple PHP web application built with the PHP micro framework . If you are familiar with [express](https://expressjs.com/) or [Flask](https://flask.palletsprojects.com/en/2.1.x/) you will feel right at home with Slim. The Github link can be found [here](https://github.com/fatfingers23/Elephant-Todo). Happy hacking!
 
 ## Featuers
 * [Slim](https://www.slimframework.com/) a micro PHP framework to make handling routing, templating, and requests a breeze.
